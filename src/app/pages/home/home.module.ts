@@ -5,6 +5,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import {HomeComponent} from "./home.component";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
+import {MatButton} from "@angular/material/button";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {MatIconModule} from "@angular/material/icon";
     CommonModule,
     HomeRoutingModule,
     MatToolbar,
-    MatIconModule
+    MatIconModule,
+    MatButton
   ]
 })
 export class HomeModule { }

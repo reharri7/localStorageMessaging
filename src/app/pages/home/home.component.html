@@ -1,3 +1,7 @@
 <mat-toolbar>
   <span>Local Storage Messaging</span>
 </mat-toolbar>
+@for (message of messages(); track $index) {
+  {{message.text}}
+}
+<button mat-button (click)="addMessage()">Click me</button>
