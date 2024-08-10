@@ -1,9 +1,6 @@
 import {Component, computed, effect, HostListener, signal} from '@angular/core';
 import {Message} from "../../models/message";
 import {v4 as uuidv4} from 'uuid';
-import {toSignal} from "@angular/core/rxjs-interop";
-import {fromEvent} from "rxjs";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
