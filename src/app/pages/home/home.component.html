@@ -2,6 +2,11 @@
   <span>Local Storage Messaging</span>
 </mat-toolbar>
 @for (message of messages(); track $index) {
+  {{$index + 1}}.
   {{message.text}}
+  <button mat-button (click)="editMessage(message.id)">Edit</button>
+  <button mat-button (click)="deleteMessage(message.id)">Delete</button>
+  <br/>
 }
-<button mat-button (click)="addMessage()">Click me</button>
+<button mat-button (click)="addMessage()">Add a message</button>
+<button mat-button (click)="clearMessages()">Clear Messages</button>
