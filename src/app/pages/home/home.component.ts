@@ -1,6 +1,8 @@
 import {Component, computed, effect, HostListener, signal} from '@angular/core';
 import {Message} from "../../models/message";
 import {v4 as uuidv4} from 'uuid';
+import {MatDialog} from "@angular/material/dialog";
+import {AddMessageComponent} from "../../components/add-message/add-message.component";
 
 @Component({
   selector: 'app-home',
@@ -25,14 +27,31 @@ export class HomeComponent {
     return this.#messages();
   });
 
+
+  constructor(
+    private dialog: MatDialog,
+  ) {
+  }
+
   addMessage() {
-    const message: Message = {
-      id: uuidv4(),
-      text: "This is a message",
-      timestamp: new Date().toISOString(),
-      userId: uuidv4()
-    };
-    this.#messages.update((prev) => [...prev, message]);
+    const dialogRef = this.dialog.open(AddMessageComponent, {
+      maxHeight: '90vh',
+      width: '900px'
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if(result.data?.text && result.data.text != '') {
+        const data = result.data;
+        const message: Message = {
+          id: uuidv4(),
+          text: data.text,
+          timestamp: new Date().toISOString(),
+          userId: uuidv4()
+        };
+        this.#messages.update((prev) => [...prev, message]);
+      }
+    });
+
   }
 
   editMessage(id: string) {
