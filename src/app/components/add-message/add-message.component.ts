@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {
   MatDialogActions,
@@ -29,8 +29,6 @@ import {MatButton} from "@angular/material/button";
 })
 export class AddMessageComponent {
   text = new FormControl<string>('');
-  @Output() newMessageEvent = new EventEmitter<string>();
-
 
   constructor(
     public dialogRef: MatDialogRef<AddMessageComponent>,
