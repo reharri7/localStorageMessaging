@@ -14,23 +14,25 @@ import {EditMessageComponent} from "../../components/edit-message/edit-message.c
 })
 export class HomeComponent implements OnInit {
   #messages = signal(JSON.parse(localStorage.getItem('messages')!) || []);
+  isLoading = false;
   synchronizedMessagesEffect = effect(() => {
     localStorage.setItem('messages', JSON.stringify(this.#messages()));
   });
+  #users = signal(JSON.parse(localStorage.getItem('users')!) || []);
   messages = computed(() => {
     return this.#messages();
   });
-  #users = signal(JSON.parse(localStorage.getItem('users')!) || []);
   protected userId = '';
-  synchronizedUsersEffect = effect(() => {
-    localStorage.setItem('users', JSON.stringify(this.#users()));
-  });
   users = computed(() => {
     return this.#users();
   });
+  synchronizedUsersEffect = effect(() => {
+    localStorage.setItem('users', JSON.stringify(this.#users()));
+  });
 
   @HostListener('window:storage')
-  localStorageEventListener() {
+  localStorageEventListener(e: StorageEvent): void {
+    console.log(e.key);
     this.#messages.update((prev) => JSON.parse(localStorage.getItem('messages')!) || []);
     this.#users.update((prev) => JSON.parse(localStorage.getItem('users')!) || []);
   }
@@ -47,7 +49,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.addUser();
+    this.isLoading = false;
   }
 
   addMessage() {
