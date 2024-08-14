@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {
   MatDialogActions,
   MatDialogClose,
@@ -28,7 +28,7 @@ import {MatButton} from "@angular/material/button";
   styleUrl: './add-message.component.css'
 })
 export class AddMessageComponent {
-  text = new FormControl<string>('');
+  text = new FormControl<string>('', [Validators.required, Validators.minLength(1)]);
 
   constructor(
     public dialogRef: MatDialogRef<AddMessageComponent>,

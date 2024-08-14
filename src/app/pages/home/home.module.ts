@@ -1,11 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { HomeRoutingModule } from './home-routing.module';
+import {HomeRoutingModule} from './home-routing.module';
 import {HomeComponent} from "./home.component";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButton} from "@angular/material/button";
+import {
+  MatCard,
+  MatCardActions,
+  MatCardAvatar,
+  MatCardContent,
+  MatCardHeader,
+  MatCardTitle
+} from "@angular/material/card";
 
 
 @NgModule({
@@ -17,7 +25,13 @@ import {MatButton} from "@angular/material/button";
     HomeRoutingModule,
     MatToolbar,
     MatIconModule,
-    MatButton
+    MatButton,
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatCardActions,
+    MatCardTitle,
+    MatCardAvatar,
   ]
 })
 export class HomeModule { }

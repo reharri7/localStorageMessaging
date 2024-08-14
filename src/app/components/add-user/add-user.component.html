@@ -1,0 +1,12 @@
+<h2 matDialogTitle>What's your name</h2>
+<mat-dialog-content>
+  <form>
+    <mat-form-field style="width: 100%">
+      <input [formControl]="displayName" matInput type="text" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button matDialogClose>Close</button>
+  <button (click)="addNewUser()" mat-button>Submit</button>
+</mat-dialog-actions>

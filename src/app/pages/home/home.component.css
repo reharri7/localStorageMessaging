@@ -1,0 +1,15 @@
+.example-card {
+  max-width: 55%;
+}
+
+.my-message-card {
+  background-color: darkcyan;
+  color: lightcyan;
+  margin-left: auto;
+}
+
+.other-message-card {
+  background-color: lightcyan;
+  color: darkcyan;
+  margin-right: auto;
+}
