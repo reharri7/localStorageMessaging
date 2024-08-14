@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
 
   @HostListener('window:storage')
   localStorageEventListener(e: StorageEvent): void {
-    console.log(e.key);
     this.#messages.update((prev) => JSON.parse(localStorage.getItem('messages')!) || []);
     this.#users.update((prev) => JSON.parse(localStorage.getItem('users')!) || []);
   }
