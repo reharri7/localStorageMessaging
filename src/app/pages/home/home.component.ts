@@ -14,20 +14,20 @@ import {EditMessageComponent} from "../../components/edit-message/edit-message.c
 })
 export class HomeComponent implements OnInit {
   #messages = signal(JSON.parse(localStorage.getItem('messages')!) || []);
+  #users = signal(JSON.parse(localStorage.getItem('users')!) || []);
   isLoading = false;
   synchronizedMessagesEffect = effect(() => {
     localStorage.setItem('messages', JSON.stringify(this.#messages()));
   });
-  #users = signal(JSON.parse(localStorage.getItem('users')!) || []);
+  synchronizedUsersEffect = effect(() => {
+    localStorage.setItem('users', JSON.stringify(this.#users()));
+  });
   messages = computed(() => {
     return this.#messages();
   });
   protected userId = '';
   users = computed(() => {
     return this.#users();
-  });
-  synchronizedUsersEffect = effect(() => {
-    localStorage.setItem('users', JSON.stringify(this.#users()));
   });
 
   @HostListener('window:storage')
