@@ -14,17 +14,20 @@ import {EditMessageComponent} from "../../components/edit-message/edit-message.c
 })
 export class HomeComponent implements OnInit {
   #messages = signal(JSON.parse(localStorage.getItem('messages')!) || []);
-  protected userId = '';
   synchronizedMessagesEffect = effect(() => {
     localStorage.setItem('messages', JSON.stringify(this.#messages()));
   });
+  messages = computed(() => {
+    return this.#messages();
+  });
   #users = signal(JSON.parse(localStorage.getItem('users')!) || []);
+  protected userId = '';
   synchronizedUsersEffect = effect(() => {
     localStorage.setItem('users', JSON.stringify(this.#users()));
   });
   users = computed(() => {
     return this.#users();
-  })
+  });
 
   @HostListener('window:storage')
   localStorageEventListener() {
@@ -32,15 +35,11 @@ export class HomeComponent implements OnInit {
     this.#users.update((prev) => JSON.parse(localStorage.getItem('users')!) || []);
   }
 
-  messages = computed(() => {
-    return this.#messages();
-  });
 
   @HostListener('window:beforeunload')
   beforeUnloadEventListener() {
     this.softDeleteUser();
   }
-
 
   constructor(
     private dialog: MatDialog,
@@ -99,13 +98,11 @@ export class HomeComponent implements OnInit {
 
   softDeleteUser() {
     let userToUpdate = this.#users().find((user: User) => user.id === this.userId);
-    console.log(userToUpdate);
     if(!!userToUpdate) {
       userToUpdate = {
         ...userToUpdate,
         displayName: "Ghost User",
       };
-      console.log(userToUpdate);
       this.#users.update((prev) => [...prev.filter( (user: User) => user.id !== this.userId), userToUpdate]);
     }
   }
