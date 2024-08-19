@@ -6,6 +6,7 @@ import {AddMessageComponent} from "../../components/add-message/add-message.comp
 import {User} from "../../models/user";
 import {AddUserComponent} from "../../components/add-user/add-user.component";
 import {EditMessageComponent} from "../../components/edit-message/edit-message.component";
+import {EditUserComponent} from "../../components/edit-user/edit-user.component";
 
 @Component({
   selector: 'app-home',
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
   localStorageEventListener(e: StorageEvent): void {
     this.#messages.update((prev) => JSON.parse(localStorage.getItem('messages')!) || []);
     this.#users.update((prev) => JSON.parse(localStorage.getItem('users')!) || []);
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
 
@@ -51,6 +53,7 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this.addUser();
     this.isLoading = false;
+    // window.scrollTo(0, document.body.scrollHeight);
   }
 
   addMessage() {
@@ -70,10 +73,10 @@ export class HomeComponent implements OnInit {
             userId: this.userId,
           };
           this.#messages.update((prev) => [...prev, message]);
+          window.scrollTo(0, document.body.scrollHeight);
         }
       });
     }
-
   }
 
   addUser() {
@@ -96,17 +99,40 @@ export class HomeComponent implements OnInit {
   }
 
   editUser() {
+    let userToUpdate = this.#users().find((user: User) => user.id === this.userId);
+    if (userToUpdate) {
+      const dialogRef = this.dialog.open(EditUserComponent, {
+        maxHeight: '90vh',
+        width: '900px',
+        data: {
+          displayName: userToUpdate.displayName,
+        }
+      });
 
+      dialogRef.afterClosed().subscribe(async result => {
+        if (result.data?.displayName) {
+          const data = result.data;
+          if (!!userToUpdate) {
+            userToUpdate = {
+              ...userToUpdate,
+              displayName: data.displayName,
+            };
+            this.#users.update((prev) => [...prev.filter((user: User) => user.id !== this.userId), userToUpdate]);
+            this.userId = userToUpdate.id;
+          }
+        }
+      });
+    }
   }
 
   softDeleteUser() {
     let userToUpdate = this.#users().find((user: User) => user.id === this.userId);
-    if(!!userToUpdate) {
+    if (!!userToUpdate) {
       userToUpdate = {
         ...userToUpdate,
         displayName: "Ghost User",
       };
-      this.#users.update((prev) => [...prev.filter( (user: User) => user.id !== this.userId), userToUpdate]);
+      this.#users.update((prev) => [...prev.filter((user: User) => user.id !== this.userId), userToUpdate]);
     }
   }
 
@@ -156,7 +182,7 @@ export class HomeComponent implements OnInit {
 
   getUser(userId: string): User | null {
     const user = this.#users().find((user: User) => user.id === userId);
-    if(!!user) {
+    if (!!user) {
       return user;
     }
     return null;

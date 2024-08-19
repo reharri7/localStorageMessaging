@@ -7,7 +7,7 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from "@angular/material/dialog";
-import {MatFormField} from "@angular/material/form-field";
+import {MatError, MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 
@@ -22,7 +22,8 @@ import {MatButton} from "@angular/material/button";
     ReactiveFormsModule,
     MatDialogActions,
     MatDialogClose,
-    MatButton
+    MatButton,
+    MatError
   ],
   templateUrl: './add-message.component.html',
   styleUrl: './add-message.component.css'
@@ -36,7 +37,8 @@ export class AddMessageComponent {
   }
 
   addNewMessage() {
-    if (!!this.text.value) {
+    this.text.markAsTouched();
+    if (this.text.valid && !!this.text.value) {
       this.dialogRef.close({
         data: {
           text: this.text.value

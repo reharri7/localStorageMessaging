@@ -7,9 +7,10 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from "@angular/material/dialog";
-import {MatFormField} from "@angular/material/form-field";
+import {MatError, MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'app-add-user',
@@ -20,9 +21,11 @@ import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
     MatDialogClose,
     MatDialogContent,
     MatDialogTitle,
+    MatError,
     MatFormField,
     MatInput,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JsonPipe
   ],
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.css'
@@ -36,7 +39,8 @@ export class AddUserComponent {
   }
 
   addNewUser() {
-    if (!!this.displayName.value) {
+    this.displayName.markAsTouched();
+    if (this.displayName.valid && !!this.displayName.value) {
       this.dialogRef.close({
         data: {
           displayName: this.displayName.value

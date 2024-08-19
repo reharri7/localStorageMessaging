@@ -5,7 +5,7 @@ import {HomeRoutingModule} from './home-routing.module';
 import {HomeComponent} from "./home.component";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {
   MatCard,
   MatCardActions,
@@ -32,6 +32,7 @@ import {
     MatCardActions,
     MatCardTitle,
     MatCardAvatar,
+    MatIconButton,
   ]
 })
 export class HomeModule { }
