@@ -2,6 +2,12 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
 
+## Requirements
+
+* Install NodeJS (latest LTS version): https://nodejs.org/en/download/
+* Install Angular CLI `npm install -g @angular/cli`
+* Star this project on GitHub https://github.com/reharri7/localStorageMessaging
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
