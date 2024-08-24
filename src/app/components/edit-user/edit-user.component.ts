@@ -1,13 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
-import {
-  MAT_DIALOG_DATA,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle
-} from "@angular/material/dialog";
+import {Component} from '@angular/core';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatButton} from "@angular/material/button";
 import {MatError, MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -30,24 +23,5 @@ import {MatInput} from "@angular/material/input";
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent {
-  displayName = new FormControl<string>('', [Validators.required, Validators.minLength(3)]);
 
-  constructor(
-    public dialogRef: MatDialogRef<EditUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {
-    console.log(this.data);
-    this.displayName.setValue(this.data?.displayName);
-  }
-
-  editUser() {
-    this.displayName.markAsTouched();
-    if (this.displayName.valid && !!this.displayName.value) {
-      this.dialogRef.close({
-        data: {
-          displayName: this.displayName.value
-        }
-      });
-    }
-  }
 }
